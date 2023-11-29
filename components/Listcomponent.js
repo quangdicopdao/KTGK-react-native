@@ -1,10 +1,10 @@
 import React from "react";
 import {View, StyleSheet,Text,TouchableOpacity} from 'react-native'
 
-function ListComponent({name, price,onClick}) {
+function ListComponent({title, price,onClick}) {
     return ( 
         <TouchableOpacity style={styles.btn} onPress={onClick}>
-            <Text style={styles.txtName}>{name}</Text>
+            <Text style={styles.txtName}>{title}</Text>
             <Text style={styles.txtPrice}>{price}đ</Text>
         </TouchableOpacity>
      );

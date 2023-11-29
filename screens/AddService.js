@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
+import {useMyContextController} from '../provider'
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 function AddService() {
@@ -10,21 +11,20 @@ function AddService() {
 
   const navigation = useNavigation();
   const route = useRoute();
-  const { itemId, name, price } = route.params ?? {};
+  const { itemId } = route.params ?? {};
+  const [{ userLogin }] = useMyContextController();
+  const { name } = userLogin;
 
-  
   useEffect(() => {
-    // Check if there's an itemId passed from the Home screen
     if (itemId) {
-      // If itemId is present, it's an edit operation
       const fetchData = async () => {
         try {
           const documentSnapshot = await firestore().collection('SERVICE').doc(itemId).get();
           const data = documentSnapshot.data();
           setNameService(data.name);
-          setPrices(data.price.toString()); // Convert to string if it's a number
+          setPrices(data.price.toString());
         } catch (error) {
-          console.error('Error fetching data:', error);
+          console.error('Lỗi khi lấy dữ liệu:', error);
         }
       };
   
@@ -34,42 +34,44 @@ function AddService() {
   
   const handleSaveService = async () => {
     try {
-      // Check if both fields are filled
-      if (!nameService || !prices) {
-        alert('Please fill in all the required information.');
+      console.log('Attempting to save service:', nameService, prices, name);
+  
+      if (!nameService || !prices || !name) {
+        alert('Vui lòng điền đầy đủ thông tin.');
         return;
       }
   
-      // Check if it's an edit or add operation
       if (itemId) {
-        // If itemId is present, it's an edit operation
-        // Update data for the given itemId
         await firestore().collection('SERVICE').doc(itemId).update({
           name: nameService,
-          price: parseFloat(prices), // Convert to number if needed
+          price: parseFloat(prices),
+          updatedBy: name,
+          updatedAt: firestore.FieldValue.serverTimestamp(),
         });
-        alert('Service has been updated successfully.');
+        alert('Dịch vụ đã được cập nhật thành công.');
       } else {
-        // If itemId is not present, it's an add operation
         await firestore().collection('SERVICE').add({
           name: nameService,
-          price: parseFloat(prices), // Convert to number if needed
+          price: parseFloat(prices),
+          createdBy: name,
+          createdAt: firestore.FieldValue.serverTimestamp(),
+          updatedBy: null,
+          updatedAt: null,
         });
-        alert('Service has been added successfully.');
+        alert('Dịch vụ đã được thêm thành công.');
       }
   
-      // Clear the input fields
       setNameService('');
       setPrices('');
   
-      // Navigate back to the previous screen
       navigation.goBack();
     } catch (error) {
-      console.error('Error saving service:', error);
-      alert('An error occurred while saving the service. Please try again.');
+      console.error('Lỗi khi lưu dịch vụ:', error);
+      alert('Đã xảy ra lỗi khi lưu dịch vụ. Vui lòng thử lại.');
     }
   };
-
+  
+  
 
   return (
     <View style={styles.container}>

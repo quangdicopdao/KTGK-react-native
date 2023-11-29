@@ -1,23 +1,32 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { View,Text, StyleSheet } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+
 
 function ServiceDetails() {
+    const route = useRoute();
+    const { name, price, createdBy, createdAt, updateAt } = route.params || {};
+    
+   
+    
+    const formattedCreatedAt = new Date(createdAt?.seconds * 1000).toLocaleString();
+  const formattedUpdateAt = new Date(updateAt?.seconds * 1000).toLocaleString();
     return ( 
         <View style={styles.container}>
             <Text style={styles.txt}>Service name: 
-                <Text style={styles.valueText}>Chăm sóc da mặt và dưỡng ẩm tự nhiên</Text>
+                <Text style={styles.valueText}>{name}</Text>
             </Text>
             <Text style={styles.txt}>Price: 
-                <Text style={styles.valueText}>250 000đ</Text>
+                <Text style={styles.valueText}>{price}</Text>
             </Text>
             <Text style={styles.txt}>Creator: 
-                <Text style={styles.valueText}>Hung</Text>
+                <Text style={styles.valueText}>{createdBy}</Text>
             </Text>
             <Text style={styles.txt}>Time: 
-                <Text style={styles.valueText}>12/03/2023</Text>
+                <Text style={styles.valueText}>{formattedCreatedAt}</Text>
             </Text>
             <Text style={styles.txt}>Final Update: 
-                <Text style={styles.valueText}>12/03/2023</Text>
+                <Text style={styles.valueText}>{formattedUpdateAt}</Text>
             </Text>
         </View>
      );

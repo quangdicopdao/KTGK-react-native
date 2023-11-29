@@ -39,8 +39,22 @@ const SwipeableItem = ({ item, onDelete, onEdit }) => {
 
   return (
     <Swipeable renderRightActions={(dragX) => renderRightActions(dragX)}>
-      <ListComponent key={item.id} name={item.name} price={item.price} onClick={() => navigation.navigate('ServiceDetails')} />
-    </Swipeable>
+    <ListComponent
+      key={item.id}
+      title={item.name}
+      price={item.price}
+      onClick={() => {
+        console.log("Item Data:", item);
+        navigation.navigate('ServiceDetails', {
+          name: item.name,
+          price: item.price,
+          createdBy: item.createdBy,
+          createdAt: item.createdAt,
+          updateAt: item.updateAt,
+        });
+      }}
+    />
+  </Swipeable>
   );
 };
 
