@@ -3,8 +3,8 @@ import { View, Text } from "react-native";
 
 function Transaction() {
     return ( 
-        <View>
-            <Text>Transaction Screen</Text>
+        <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
+            <Text style={{fontSize:30,fontWeight:'bold'}}>Transaction Screen</Text>
         </View>
      );
 }

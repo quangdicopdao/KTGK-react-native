@@ -39,17 +39,23 @@ function useMyContextController() {
 }
 const USERS = firestore().collection("USER")
 const login = (dispatch,email, password) =>{
-  auth().signInWithEmailAndPassword(email,password)
-  .then(
-    ()=>
-      USERS.doc(email)
-      .onSnapshot(u => {
-        const value = u.data();
-        console.log("Đăng Nhập Thành Công Với User : ", value);
-        dispatch({type: "USER_LOGIN", value});
-      })
-  )
-  .catch(e => alert("Sai thông tin đăng nhập. Vui lòng nhập lại!") )
+  if(!email || !password) {
+    alert('Vui lòng điền đủ thông tin đăng nhập')
+  }
+  else{
+
+    auth().signInWithEmailAndPassword(email,password)
+    .then(
+      ()=>
+        USERS.doc(email)
+        .onSnapshot(u => {
+          const value = u.data();
+          console.log("Đăng Nhập Thành Công Với User : ", value);
+          dispatch({type: "USER_LOGIN", value});
+        })
+    )
+    .catch(e => alert("Sai thông tin đăng nhập. Vui lòng nhập lại!") )
+  }
 }
 
 export {

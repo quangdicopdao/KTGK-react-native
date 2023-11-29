@@ -9,20 +9,7 @@ function Login({navigation}) {
     const [isShow,setIsShow] = useState(true)
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
-    // // function login
-    // const handleLoginPress = () => {
-    //     auth().signInWithEmailAndPassword(email, password)
-    //     .then(() => {
-    //         console.log('Login success')
-    //         navigation.navigate('Home')
-    //     }
-    //     )
-    //     .catch(() => {
-    //         Alert.alert('Thông báo', 'Đăng nhập thất bại')
-    //         console.log('Login failure')
-    //     });
-
-    // }
+   
     // Use the context hook to get the login function
     const [controller, dispatch] = useMyContextController();
     const {userLogin} = controller;
