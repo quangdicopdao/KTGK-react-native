@@ -50,7 +50,7 @@ const SwipeableItem = ({ item, onDelete, onEdit }) => {
           price: item.price,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
-          updateAt: item.updateAt,
+          updatedAt: item.updatedAt,
         });
       }}
     />
@@ -61,19 +61,7 @@ const SwipeableItem = ({ item, onDelete, onEdit }) => {
 function Home() {
   const navigation = useNavigation();
     const [serviceData, setServiceData] = useState([]);
-    //handle display data
-    // useEffect(() => {
-    //   const unsubscribe = firestore().collection("SERVICE").onSnapshot((snapshot) => {
-    //     const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    //     setServiceData(data);
-    //   });
-  
-    //   return () => {
-    //     // Unsubscribe khi component unmount hoặc không cần lắng nghe nữa
-    //     unsubscribe();
-    //   };
-    // }, []);
-    //
+   
     useEffect(() => {
       let isMounted = true;
     
@@ -136,7 +124,7 @@ function Home() {
     //chuyển tới trang sửa
     const handleEdit = (itemId, name, price) => {
       console.log("Edit item with ID:", itemId);
-      navigation.navigate('AddService', { itemId, name, price });
+      navigation.navigate('EditService', { itemId, name, price });
     };
     
   

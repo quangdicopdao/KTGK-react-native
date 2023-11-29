@@ -5,12 +5,12 @@ import { useRoute } from '@react-navigation/native';
 
 function ServiceDetails() {
     const route = useRoute();
-    const { name, price, createdBy, createdAt, updateAt } = route.params || {};
+    const { name, price, createdBy, createdAt, updatedAt } = route.params || {};
     
    
     
     const formattedCreatedAt = new Date(createdAt?.seconds * 1000).toLocaleString();
-  const formattedUpdateAt = new Date(updateAt?.seconds * 1000).toLocaleString();
+  const formattedUpdateAt = new Date(updatedAt?.seconds * 1000).toLocaleString();
     return ( 
         <View style={styles.container}>
             <Text style={styles.txt}>Service name: 

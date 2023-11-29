@@ -73,10 +73,17 @@ const styles = StyleSheet.create({
     wraperImg:{
         flexDirection:'row',
         justifyContent:'flex-start',
-        alignItems:'center'
+        alignItems:'center',
+        borderBottomWidth:1,
+        borderColor:'#ccc',
+    },
+    img:{
+      width:200,
+      height:200
     },
     info:{
-        paddingLeft:10
+        paddingLeft:10,
+        marginTop:10
     },
     txt:{
         fontWeight:'bold',
