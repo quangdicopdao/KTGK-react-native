@@ -35,7 +35,7 @@ function Customer() {
             borderColor:'#e06464'
         }
         }>
-            <Image source={require('../assets/user-profile-icon-free-vector.jpg')} style={{width:60,height:60,marginRight:50}}/>
+            <Image source={require('../assets/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA2L3Y5MzctYWV3LTE2NS5qcGc.png')} style={{width:60,height:60,marginRight:50}}/>
             <Text style={{fontSize:16,fontWeight:'bold',color:'#e06464',alignSelf:'center'}}>{item.name}</Text></TouchableOpacity>
         )}
       />

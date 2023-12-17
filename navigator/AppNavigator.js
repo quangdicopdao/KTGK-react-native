@@ -3,18 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { BottomNavigation, Text } from 'react-native-paper';
-import { Login, Home, Setting, AddService, ServiceDetails, Customer, Transaction } from '../screens';
+import { Login, Home, Setting, AddService, ServiceDetails, Customer, Transaction ,UserService,BookSevice} from '../screens';
 
-// const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-// const HomeStack = () => (
-//   <Stack.Navigator screenOptions={{ headerShown: false }}>
-//     <Stack.Screen name='Home' component={Home} />
-//     <Stack.Screen name='AddService' component={AddService} />
-//     <Stack.Screen name='ServiceDetails' component={ServiceDetails} />
-//   </Stack.Navigator>
-// );
 
 const MyComponent = () => {
   const [index, setIndex] = React.useState(0);
@@ -32,6 +24,7 @@ const MyComponent = () => {
     setting: Setting,
   });
 
+  
   return (
     <BottomNavigation
       navigationState={{ index, routes }}
@@ -41,11 +34,34 @@ const MyComponent = () => {
   );
 };
 
+const UserComponent = () => {
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: 'user', title: 'Service', focusedIcon: 'home'},
+    { key: 'setting', title: 'Setting', focusedIcon: 'account-settings' },
+  ]);
+
+  const renderScene = BottomNavigation.SceneMap({
+    user: UserService,
+    setting: Setting,
+  });
+
+  
+  return (
+    <BottomNavigation
+      navigationState={{ index, routes }}
+      onIndexChange={setIndex}
+      renderScene={renderScene}
+    />
+  );
+};
 
 const AppNavigator = () => (
   <NavigationContainer>
     <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Login' component={Login} />
+      <Stack.Screen name='BookSevice' component={BookSevice} options={{headerShown:true, title:'Đặt lịch',headerStyle:{backgroundColor:'#e06464'},headerTintColor:'#fff'}} />
+      <Stack.Screen name='UserService' component={UserComponent} />
       <Stack.Screen name='AddService' component={AddService} options={{headerShown:true, title:'Thêm dịch vụ',headerStyle:{backgroundColor:'#e06464'},headerTintColor:'#fff'}} />
       <Stack.Screen name='EditService' component={AddService} options={{headerShown:true, title:'Sửa dịch vụ',headerStyle:{backgroundColor:'#e06464'},headerTintColor:'#fff'}} />
       <Stack.Screen name='ServiceDetails' component={ServiceDetails} options={{headerShown:true, title:'Chi tiết dịch vụ',headerStyle:{backgroundColor:'#e06464'},headerTintColor:'#fff'}}/>

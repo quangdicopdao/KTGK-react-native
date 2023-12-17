@@ -13,10 +13,20 @@ function Login({navigation}) {
     // Use the context hook to get the login function
     const [controller, dispatch] = useMyContextController();
     const {userLogin} = controller;
+
+
+
     useEffect(() => {
         console.log("useEffect triggered");
         if (userLogin !== null)
-        { navigation.navigate("Home")
+        { 
+            if(userLogin.role === 'admin')
+            {
+                navigation.navigate('Home')
+            }
+            else{
+                navigation.navigate('UserService')
+            }
     };
       }, [userLogin]);
     const handleLoginPress =()=>{
